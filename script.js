@@ -6,6 +6,8 @@ const theTimer = document.querySelector(".timer");
 
 // Captures minutes, seconds, hundredths, and thousandths of seconds independantly of eachother
 var timer = [0,0,0,0];
+var interval;
+var timerRunning = false;
 
 // Add leading zero to numbers 9 or below (purely for aesthetics):
 // This is a helper function:
@@ -38,6 +40,7 @@ function spellCheck() {
   // Two arguments: where you want to start and how long you want the string to be
   let originTextMatch = originText.substring(0, textEntered.length)
   if (textEntered == originText) {
+    clearInterval(interval);
     testWrapper.style.borderColor = "#429890";
   } else {
     if (textEntered == originTextMatch) {
@@ -50,8 +53,8 @@ function spellCheck() {
 // Start the timer:
 function start() {
   let textEnteredLength = testArea.value.length;
-  if (textEnteredLength === 0) {
-    setInterval(runTimer, 10);
+  if (textEnteredLength === 0 && !timerRunning) {
+    interval = setInterval(runTimer, 10);
   }
   console.log(textEnteredLength);
 }
